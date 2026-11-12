@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #fff; color: #0f172a; font: 16px/1.5 system-ui, sans-serif; }
+main { width: 100%; max-width: 900px; }
+h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; margin: 0 0 6px; }
+.sub { color: #475569; margin: 0 0 28px; }
+#demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+
+/* ---- Delete button ---- */
+.stage{background:linear-gradient(160deg,#f8fafc,#eef2f7);border:1px solid #e2e8f0;padding:56px 24px;border-radius:20px;display:grid;place-items:center}
+.del-btn{--c:#2563eb;--c2:#60a5fa;display:flex;align-items:center;width:180px;padding:14px 20px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--c2),var(--c));color:#fff;font:600 16px system-ui,sans-serif;cursor:pointer;transition:transform .15s,box-shadow .2s;box-shadow:0 6px 18px color-mix(in srgb,var(--c) 45%,transparent)}
+.dark .del-btn{--c:#e11d48;--c2:#fb7185}
+.del-btn:hover{transform:translateY(-2px)}
+.del-btn:active{transform:scale(.96)}
+.label{display:inline-block;transition:transform .7s cubic-bezier(.6,0,.4,1),opacity .7s;white-space:nowrap}
+.bin{width:28px;height:28px;margin-left:auto;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bin .lid{transform-origin:4px 7px;transition:transform .25s}
+.del-btn.eating .label{transform:translateX(85px) scale(.1);opacity:0}
+.del-btn.eating .lid{transform:rotate(-30deg)}
+.del-btn.eating .bin{animation:chew .3s .6s 3}
+@keyframes chew{50%{transform:scale(1.3,.8)}}

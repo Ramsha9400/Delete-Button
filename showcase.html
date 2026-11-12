@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bin Eats Label – Delete Button</title>
+<style id="demo-css">
+.stage{background:linear-gradient(160deg,#f8fafc,#eef2f7);border:1px solid #e2e8f0;padding:56px 24px;border-radius:20px;display:grid;place-items:center}
+.del-btn{--c:#2563eb;--c2:#60a5fa;display:flex;align-items:center;width:180px;padding:14px 20px;border:0;border-radius:14px;background:linear-gradient(135deg,var(--c2),var(--c));color:#fff;font:600 16px system-ui,sans-serif;cursor:pointer;transition:transform .15s,box-shadow .2s;box-shadow:0 6px 18px color-mix(in srgb,var(--c) 45%,transparent)}
+.dark .del-btn{--c:#e11d48;--c2:#fb7185}
+.del-btn:hover{transform:translateY(-2px)}
+.del-btn:active{transform:scale(.96)}
+.label{display:inline-block;transition:transform .7s cubic-bezier(.6,0,.4,1),opacity .7s;white-space:nowrap}
+.bin{width:28px;height:28px;margin-left:auto;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bin .lid{transform-origin:4px 7px;transition:transform .25s}
+.del-btn.eating .label{transform:translateX(85px) scale(.1);opacity:0}
+.del-btn.eating .lid{transform:rotate(-30deg)}
+.del-btn.eating .bin{animation:chew .3s .6s 3}
+@keyframes chew{50%{transform:scale(1.3,.8)}}
+</style>
+<style>
+:root{color-scheme:light;--bg:#fff;--fg:#111827;--mut:#6b7280;--card:#0f172a;--line:#1e293b}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+main{max-width:900px;margin:0 auto}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.5px;margin:0 0 6px;color:#0f172a}
+p.sub{color:#475569;margin:0 0 28px}
+#demo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px}
+.cap{color:var(--mut);font-size:.85rem;text-align:center;margin-top:10px}
+.lab{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:1.05rem;font-weight:700;color:#0f172a}
+.lab i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#0f172a;color:#fff;font:700 .8rem system-ui;font-style:normal}
+.codebox{background:#0f172a;border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(15,23,42,.18)}
+.tabs{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#0b1222;border-bottom:1px solid #1e293b;overflow-x:auto}
+.dots{display:flex;gap:6px;margin-right:8px}.dots b{width:11px;height:11px;border-radius:50%;background:#f87171}.dots b:nth-child(2){background:#fbbf24}.dots b:nth-child(3){background:#34d399}
+.tab{display:flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:8px 14px;background:transparent;color:#94a3b8;font:600 .9rem system-ui;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
+.tab::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--d)}
+.tab:hover{color:#e2e8f0}.tab.on{background:#1e293b;color:#fff}
+.copy{margin-left:auto;border:0;border-radius:10px;padding:8px 14px;background:#2563eb;color:#fff;font:600 .85rem system-ui;cursor:pointer}
+pre{margin:0;padding:18px;overflow:auto;max-height:420px;font:13.5px/1.7 ui-monospace,Menlo,Consolas,monospace;color:#e2e8f0;tab-size:2}
+.t-tag,.t-kw{color:#f472b6}.t-attr,.t-prop{color:#fbbf24}.t-str{color:#86efac}.t-pun{color:#94a3b8}.t-com{color:#64748b;font-style:italic}
+.t-sel{color:#7dd3fc}.t-num{color:#fdba74}.t-fn{color:#60a5fa}.t-hex{color:#fda4af}
+</style>
+</head>
+<body>
+<main>
+<h1>Bin Eats the Label</h1>
+<p class="sub">Button par click karo – bin label ko kha jata hai aur awaaz bhi aati hai.</p>
+<section><h2 class="lab"><i>1</i>Preview</h2><div id="demo"></div></section>
+<section><h2 class="lab"><i>2</i>Code</h2>
+<div class="codebox">
+<div class="tabs" role="tablist"><span class="dots"><b></b><b></b><b></b></span>
+<button class="tab on" data-t="html" style="--d:#fb923c">HTML</button>
+<button class="tab" data-t="css" style="--d:#60a5fa">CSS</button>
+<button class="tab" data-t="js" style="--d:#facc15">JavaScript</button>
+<button class="copy" id="copy">Copy</button></div>
+<pre><code id="code"></code></pre>
+</div></section>
+</main>
+
+<template id="tpl">
+<div>
+  <div class="stage">
+    <button class="del-btn"><span class="label">Delete</span>
+      <svg class="bin" viewBox="0 0 24 24"><g class="lid"><path d="M4 7h16M9 7V4h6v3"/></g><path d="M6 7l1 13h10l1-13"/></svg>
+    </button>
+  </div>
+</div>
+<div>
+  <div class="stage dark">
+    <button class="del-btn"><span class="label">Delete</span>
+      <svg class="bin" viewBox="0 0 24 24"><g class="lid"><path d="M4 7h16M9 7V4h6v3"/></g><path d="M6 7l1 13h10l1-13"/></svg>
+    </button>
+  </div>
+</div>
+</template>
+
+<script>document.getElementById('demo').innerHTML=document.getElementById('tpl').innerHTML;</script>
+
+<script id="demo-js">
+function munch(){
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return;
+  const ctx = new AC(), t0 = ctx.currentTime + 0.55;
+  for(let i = 0; i < 3; i++){
+    const t = t0 + i * 0.3;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.setValueAtTime(220, t);
+    o.frequency.exponentialRampToValueAtTime(60, t + 0.15);
+    g.gain.setValueAtTime(0.25, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+    o.connect(g).connect(ctx.destination);
+    o.start(t); o.stop(t + 0.2);
+  }
+  const g = t0 + 0.95, o = ctx.createOscillator(), v = ctx.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(120, g);
+  o.frequency.exponentialRampToValueAtTime(400, g + 0.2);
+  v.gain.setValueAtTime(0.3, g);
+  v.gain.exponentialRampToValueAtTime(0.001, g + 0.25);
+  o.connect(v).connect(ctx.destination);
+  o.start(g); o.stop(g + 0.3);
+}
+document.querySelectorAll('.del-btn').forEach(btn => {
+  const label = btn.querySelector('.label');
+  let busy = false;
+  btn.addEventListener('click', () => {
+    if(busy) return;
+    busy = true;
+    btn.classList.add('eating');
+    munch();
+    setTimeout(() => {
+      label.style.transition = 'none';
+      btn.classList.remove('eating');
+      label.textContent = 'Deleted ✓';
+      label.offsetWidth;
+      label.style.transition = '';
+      label.animate([{opacity:0},{opacity:1}], 300);
+    }, 1700);
+    setTimeout(() => { label.textContent = 'Delete'; busy = false; }, 3400);
+  });
+});
+</script>
+
+<script>
+const src = {
+  html: document.getElementById('tpl').innerHTML.trim(),
+  css: document.getElementById('demo-css').textContent.trim(),
+  js: document.getElementById('demo-js').textContent.trim()
+};
+const esc = t => t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const sp = (c,t) => '<span class="t-'+c+'">'+esc(t)+'</span>';
+function hlHtml(code){
+  return code.split(/(<[^>]+>)/g).map(part=>{
+    const m = part.match(/^(<\/?)([\w-]+)([^>]*?)(\/?>)$/);
+    if(!m) return esc(part);
+    const attrs = m[3].replace(/([\w:-]+)(=)("[^"]*")/g,(_,a,e,v)=>'\u0001'+sp('attr',a)+sp('pun',e)+sp('str',v)+'\u0002');
+    const out = attrs.split(/[\u0001\u0002]/).map((x,i)=> i%2 ? x : esc(x)).join('');
+    return sp('pun',m[1])+sp('tag',m[2])+out+sp('pun',m[4]);
+  }).join('');
+}
+function hlCss(code){
+  const re = /(\/\*[\s\S]*?\*\/)|([^{};]+(?=\{))|(-{0,2}[\w-]+(?=\s*:))|(#[0-9a-fA-F]{3,8}\b)|(-?\.?\d[\d.]*(?:px|%|s|ms|deg|em|rem)?)|([\w-]+(?=\())|([{}:;,()])/g;
+  let o='', last=0, m;
+  while((m = re.exec(code))){
+    o += esc(code.slice(last,m.index)); last = re.lastIndex;
+    const c = m[1]?'com':m[2]?'sel':m[3]?'prop':m[4]?'hex':m[5]?'num':m[6]?'fn':'pun';
+    o += sp(c,m[0]);
+  }
+  return o + esc(code.slice(last));
+}
+function hlJs(code){
+  const re = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)|\b(const|let|var|function|return|if|else|for|new|true|false|null|undefined|of|in)\b|\b(\d+(?:\.\d+)?)\b|([A-Za-z_$][\w$]*)(?=\()/g;
+  let o='', last=0, m;
+  while((m = re.exec(code))){
+    o += esc(code.slice(last,m.index)); last = re.lastIndex;
+    o += sp(m[1]?'com':m[2]?'str':m[3]?'kw':m[4]?'num':'fn', m[0]);
+  }
+  return o + esc(code.slice(last));
+}
+const hl = {html:hlHtml, css:hlCss, js:hlJs};
+let cur = 'html';
+const codeEl = document.getElementById('code');
+function show(k){
+  cur = k; codeEl.innerHTML = hl[k](src[k]);
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.t === k));
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => show(b.dataset.t)));
+const cp = document.getElementById('copy');
+cp.addEventListener('click', async () => {
+  try{ await navigator.clipboard.writeText(src[cur]); cp.textContent = 'Copied!'; }
+  catch(e){ cp.textContent = 'Select & copy'; }
+  setTimeout(() => cp.textContent = 'Copy', 1500);
+});
+show('html');
+</script>
+</body>
+</html>
